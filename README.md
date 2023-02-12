@@ -57,3 +57,7 @@ See [OpenWeather API - Current weather data page](https://openweathermap.org/cur
 
 - Add dependancy and test configuration for WireMock
 - Mock OpenWeatherMap API in endpoint `/locations` integration test
+
+## ## 5 : Get JCDecaux data for location
+
+See [JCDecaux developer](https://developer.jcdecaux.com/)

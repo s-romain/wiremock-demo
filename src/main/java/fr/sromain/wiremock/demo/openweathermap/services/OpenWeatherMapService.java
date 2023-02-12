@@ -12,6 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Service
 public class OpenWeatherMapService {
+    public static final String PATH = "/data/2.5/weather";
     @Value("${api.openweathermap.url}")
     String openWeatherMapUrl;
     @Value("${api.openweathermap.apiKey}")
@@ -22,7 +23,7 @@ public class OpenWeatherMapService {
                 .baseUrl(openWeatherMapUrl)
                 .build()
                 .get()
-                .uri(uriBuilder -> uriBuilder.path("/data/2.5/weather")
+                .uri(uriBuilder -> uriBuilder.path(PATH)
                         .queryParam("lat", location.getLat())
                         .queryParam("lon", location.getLon())
                         .queryParam("apiKey", openWeatherMapApiKey)

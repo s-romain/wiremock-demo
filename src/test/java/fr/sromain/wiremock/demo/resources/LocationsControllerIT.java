@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import fr.sromain.wiremock.demo.AbstractIntegrationTest;
 import fr.sromain.wiremock.demo.enums.Location;
+import fr.sromain.wiremock.demo.jcdecaux.services.JcDecauxService;
 import fr.sromain.wiremock.demo.openweathermap.entities.Coord;
 import fr.sromain.wiremock.demo.openweathermap.entities.CurrentWeather;
 import fr.sromain.wiremock.demo.openweathermap.entities.Weather;
+import fr.sromain.wiremock.demo.openweathermap.services.OpenWeatherMapService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +49,8 @@ public class LocationsControllerIT extends AbstractIntegrationTest {
         // Mock call API WeatherMap for London
         mockOpenWeatherMapApiForLocation(LONDON, 2L, "Clouds", "overcast clouds");
 
+        givenThat(WireMock.get(urlPathEqualTo(JcDecauxService.PATH)).willReturn(aResponse().withStatus(200)));
+
         /* WHEN */
         this.mockMvc.perform(get(urlListLocations))
                 .andExpect(status().isOk())
@@ -66,7 +70,7 @@ public class LocationsControllerIT extends AbstractIntegrationTest {
     }
 
     private void mockOpenWeatherMapApiForLocation(Location location, long id, String main, String description) throws JsonProcessingException {
-        givenThat(WireMock.get(urlPathEqualTo("/data/2.5/weather"))
+        givenThat(WireMock.get(urlPathEqualTo(OpenWeatherMapService.PATH))
                 .withQueryParam("lat", equalTo(location.getLat().toString()))
                 .withQueryParam("lon", equalTo(location.getLon().toString()))
                 .withQueryParam("apiKey", equalTo(apiKey))
