@@ -12,13 +12,27 @@ import java.util.List;
 @Builder
 public class LocationDto {
     @JsonSerialize
-    Location location;
+    String name;
+    @JsonSerialize
+    String city;
+    @JsonSerialize
+    String country;
+    @JsonSerialize
+    String state;
+    @JsonSerialize
+    Double lat;
+    @JsonSerialize
+    Double lon;
+    @JsonSerialize
+    String jcDecauxContractName;
+    @JsonSerialize
+    String description;
+    @JsonSerialize
+    String urlImg;
     @JsonSerialize
     CurrentWeather weather;
-
     @JsonSerialize
     List<Station> stations;
-
     @JsonSerialize
     List<Player> players;
 }
